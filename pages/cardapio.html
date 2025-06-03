@@ -52,8 +52,8 @@
             color: white;
         }
         .delivery-info {
-            background-color: #fff8e1;
-            border-left: 4px solid #ffc107;
+            border: 2px solid white;
+            border-radius: 10px;
             padding: 1rem;
             margin-bottom: 2rem;
         }
@@ -76,10 +76,29 @@
             text-align: center;
             padding: 1rem;
         }
-        .badge-notification {
-            position: absolute;
-            top: -5px;
-            right: -5px;
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .payment-method {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .payment-method.selected {
+            border-color: #dc3545;
+            background-color: #fff0f0;
+        }
+        .payment-method i {
+            margin-right: 5px;
+        }
+        .food-img {
+            height: 180px;
+            object-fit: cover;
         }
     </style>
 </head>
@@ -102,8 +121,8 @@
             <h2 class="categoria-title"><i class="fas fa-star me-2"></i>Destaques</h2>
             <div class="row">
                 <div class="col-md-6 col-lg-4">
-                    <div class="card card-item h-100" onclick="addToCart('Burger Especial', 29.90, 'https://via.placeholder.com/300x200?text=Burger+Especial')">
-                        <img src="https://via.placeholder.com/300x200?text=Burger+Especial" class="card-img-top" alt="Burger Especial">
+                    <div class="card card-item h-100" onclick="addToCart('Burger Especial', 29.90)">
+                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top food-img" alt="Burger Especial">
                         <div class="card-body">
                             <h5 class="card-title">Burger Especial</h5>
                             <p class="card-text">Pão brioche, hambúrguer 180g, queijo cheddar, bacon e molho especial.</p>
@@ -115,8 +134,8 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <div class="card card-item h-100" onclick="addToCart('Pizza Margherita', 49.90, 'https://via.placeholder.com/300x200?text=Pizza+Margherita')">
-                        <img src="https://via.placeholder.com/300x200?text=Pizza+Margherita" class="card-img-top" alt="Pizza Margherita">
+                    <div class="card card-item h-100" onclick="addToCart('Pizza Margherita', 49.90)">
+                        <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top food-img" alt="Pizza Margherita">
                         <div class="card-body">
                             <h5 class="card-title">Pizza Margherita</h5>
                             <p class="card-text">Molho de tomate, mussarela, tomate fresco e manjericão.</p>
@@ -128,8 +147,8 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <div class="card card-item h-100" onclick="addToCart('Salada Cesar', 24.90, 'https://via.placeholder.com/300x200?text=Salada+Cesar')">
-                        <img src="https://via.placeholder.com/300x200?text=Salada+Cesar" class="card-img-top" alt="Salada Cesar">
+                    <div class="card card-item h-100" onclick="addToCart('Salada Cesar', 24.90)">
+                        <img src="https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top food-img" alt="Salada Cesar">
                         <div class="card-body">
                             <h5 class="card-title">Salada Cesar</h5>
                             <p class="card-text">Alface romana, croutons, parmesão e molho cesar.</p>
@@ -179,6 +198,84 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="card card-item mb-3" onclick="addToCart('X-Bacon', 24.90)">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="card-title">X-Bacon</h5>
+                                    <p class="card-text">Pão, hambúrguer, queijo, bacon crocante e molho especial.</p>
+                                </div>
+                                <div class="text-end">
+                                    <span class="item-price">R$ 24,90</span>
+                                    <button class="btn btn-outline-danger btn-sm d-block mt-2">Adicionar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card card-item mb-3" onclick="addToCart('X-Tudo', 27.90)">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="card-title">X-Tudo</h5>
+                                    <p class="card-text">Pão, 2 hambúrgueres, queijo, presunto, bacon, ovo, alface e tomate.</p>
+                                </div>
+                                <div class="text-end">
+                                    <span class="item-price">R$ 27,90</span>
+                                    <button class="btn btn-outline-danger btn-sm d-block mt-2">Adicionar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Massas -->
+        <section>
+            <h2 class="categoria-title"><i class="fas fa-pasta me-2"></i>Massas</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card card-item h-100" onclick="addToCart('Spaghetti Carbonara', 32.90)">
+                        <img src="https://images.unsplash.com/photo-1611270632007-2d2b5a7d3b2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top food-img" alt="Spaghetti Carbonara">
+                        <div class="card-body">
+                            <h5 class="card-title">Spaghetti Carbonara</h5>
+                            <p class="card-text">Massa spaghetti com molho cremoso de bacon, ovos e queijo parmesão.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="item-price">R$ 32,90</span>
+                                <button class="btn btn-outline-danger btn-sm">Adicionar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card card-item h-100" onclick="addToCart('Penne ao Molho Pesto', 34.90)">
+                        <img src="https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top food-img" alt="Penne ao Molho Pesto">
+                        <div class="card-body">
+                            <h5 class="card-title">Penne ao Molho Pesto</h5>
+                            <p class="card-text">Massa penne com molho pesto de manjericão, pinoli e queijo parmesão.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="item-price">R$ 34,90</span>
+                                <button class="btn btn-outline-danger btn-sm">Adicionar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card card-item h-100" onclick="addToCart('Ravioli de Queijo', 36.90)">
+                        <img src="https://images.unsplash.com/photo-1611270632413-069ad4bc5a09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top food-img" alt="Ravioli de Queijo">
+                        <div class="card-body">
+                            <h5 class="card-title">Ravioli de Queijo</h5>
+                            <p class="card-text">Massa recheada com queijo, servida com molho de tomate fresco.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="item-price">R$ 36,90</span>
+                                <button class="btn btn-outline-danger btn-sm">Adicionar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -213,6 +310,33 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4 col-6">
+                    <div class="card card-item mb-3" onclick="addToCart('Cerveja Artesanal', 12.90)">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Cerveja Artesanal</h5>
+                            <p class="card-text">355ml - IPA, Pilsen ou Weiss</p>
+                            <span class="item-price">R$ 12,90</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="card card-item mb-3" onclick="addToCart('Refrigerante 1L', 10.90)">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Refrigerante 1L</h5>
+                            <p class="card-text">1 litro - Coca, Guaraná ou Fanta</p>
+                            <span class="item-price">R$ 10,90</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="card card-item mb-3" onclick="addToCart('Água Tônica', 7.90)">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Água Tônica</h5>
+                            <p class="card-text">350ml - Schweppes ou Antarctica</p>
+                            <span class="item-price">R$ 7,90</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
@@ -226,13 +350,74 @@
                     <span id="cart-count">0</span> iten(s) - Total: R$ <span id="cart-total">0,00</span>
                     <span id="delivery-fee" class="small text-muted"> + R$ 5,00 de entrega</span>
                 </h5>
-                <button class="btn btn-success" onclick="finalizeOrder()" id="finalize-btn" disabled>
+                <button class="btn btn-success" onclick="showClientDataModal()" id="finalize-btn" disabled>
                     <i class="fab fa-whatsapp me-2"></i>Finalizar Pedido
                 </button>
             </div>
             
             <div class="mt-2" id="cart-items">
                 <div class="cart-empty">Seu carrinho está vazio</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Dados do Cliente -->
+    <div class="modal fade" id="clientDataModal" tabindex="-1" aria-labelledby="clientDataModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="clientDataModalLabel">Dados para Entrega</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="clientDataForm">
+                        <div class="mb-3">
+                            <label for="clientName" class="form-label">Nome completo</label>
+                            <input type="text" class="form-control" id="clientName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="clientPhone" class="form-label">Telefone</label>
+                            <input type="tel" class="form-control" id="clientPhone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="clientAddress" class="form-label">Endereço completo</label>
+                            <textarea class="form-control" id="clientAddress" rows="3" required></textarea>
+                            <div class="form-text">Inclua complemento e ponto de referência se necessário</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Forma de pagamento</label>
+                            <div class="payment-methods">
+                                <div class="payment-method" onclick="selectPaymentMethod('Dinheiro')">
+                                    <i class="fas fa-money-bill-wave"></i> Dinheiro
+                                </div>
+                                <div class="payment-method" onclick="selectPaymentMethod('Cartão de Crédito')">
+                                    <i class="fas fa-credit-card"></i> Crédito
+                                </div>
+                                <div class="payment-method" onclick="selectPaymentMethod('Cartão de Débito')">
+                                    <i class="fas fa-credit-card"></i> Débito
+                                </div>
+                                <div class="payment-method" onclick="selectPaymentMethod('PIX')">
+                                    <i class="fas fa-qrcode"></i> PIX
+                                </div>
+                            </div>
+                            <input type="hidden" id="paymentMethod" required>
+                        </div>
+                        <div class="mb-3" id="changeField" style="display: none;">
+                            <label for="changeFor" class="form-label">Troco para</label>
+                            <input type="text" class="form-control" id="changeFor" placeholder="R$ 0,00">
+                        </div>
+                        <div class="mb-3">
+                            <label for="clientNotes" class="form-label">Observações</label>
+                            <textarea class="form-control" id="clientNotes" rows="2"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" onclick="finalizeOrder()">
+                        <i class="fab fa-whatsapp me-2"></i>Enviar Pedido
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -244,6 +429,42 @@
         // Variáveis globais
         let cart = [];
         const deliveryFee = 5.00;
+        let clientDataModal = null;
+        
+        // Inicializa o modal quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            clientDataModal = new bootstrap.Modal(document.getElementById('clientDataModal'));
+        });
+        
+        // Função para mostrar o modal de dados do cliente
+        function showClientDataModal() {
+            // Reseta o formulário
+            document.getElementById('clientDataForm').reset();
+            document.getElementById('changeField').style.display = 'none';
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            clientDataModal.show();
+        }
+        
+        // Função para selecionar método de pagamento
+        function selectPaymentMethod(method) {
+            document.getElementById('paymentMethod').value = method;
+            
+            // Atualiza visualização
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+            
+            // Mostra campo de troco se for dinheiro
+            if (method === 'Dinheiro') {
+                document.getElementById('changeField').style.display = 'block';
+            } else {
+                document.getElementById('changeField').style.display = 'none';
+            }
+        }
         
         // Função para adicionar item ao carrinho
         function addToCart(name, price, image = '') {
@@ -357,7 +578,26 @@
         
         // Função para finalizar pedido via WhatsApp
         function finalizeOrder() {
-            let message = "Olá, gostaria de fazer um pedido delivery:\n\n";
+            // Valida o formulário
+            const form = document.getElementById('clientDataForm');
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                return;
+            }
+            
+            // Coleta os dados do formulário
+            const clientName = document.getElementById('clientName').value;
+            const clientPhone = document.getElementById('clientPhone').value;
+            const clientAddress = document.getElementById('clientAddress').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            const changeFor = document.getElementById('changeFor').value;
+            const clientNotes = document.getElementById('clientNotes').value;
+            
+            let message = `*NOVO PEDIDO DELIVERY* - ${new Date().toLocaleString()}\n\n`;
+            message += `*Cliente:* ${clientName}\n`;
+            message += `*Telefone:* ${clientPhone}\n`;
+            message += `*Endereço:* ${clientAddress}\n\n`;
+            message += `*Itens do pedido:*\n`;
             
             // Lista os itens do pedido
             cart.forEach(item => {
@@ -368,24 +608,36 @@
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const total = subtotal + deliveryFee;
             
-            message += `\nSubtotal: R$ ${subtotal.toFixed(2)}\n`;
-            message += `Taxa de entrega: R$ ${deliveryFee.toFixed(2)}\n`;
-            message += `Total: R$ ${total.toFixed(2)}\n\n`;
-            message += "Meus dados para entrega:\n";
-            message += "Nome: \n";
-            message += "Endereço: \n";
-            message += "Telefone: \n";
-            message += "Forma de pagamento: \n";
-            message += "Troco para: \n";
+            message += `\n*Subtotal:* R$ ${subtotal.toFixed(2)}\n`;
+            message += `*Taxa de entrega:* R$ ${deliveryFee.toFixed(2)}\n`;
+            message += `*Total:* R$ ${total.toFixed(2)}\n\n`;
+            
+            // Adiciona informações de pagamento
+            message += `*Forma de pagamento:* ${paymentMethod}\n`;
+            if (paymentMethod === 'Dinheiro' && changeFor) {
+                message += `*Troco para:* R$ ${changeFor}\n`;
+            }
+            
+            // Adiciona observações se houver
+            if (clientNotes) {
+                message += `\n*Observações:*\n${clientNotes}\n`;
+            }
             
             // Codifica a mensagem para URL
             const encodedMessage = encodeURIComponent(message);
             
             // Substitua pelo número do seu restaurante (com código do país e DDD)
-            const whatsappNumber = "5511999999999";
+            const whatsappNumber = "5518997872771";
+            
+            // Fecha o modal
+            clientDataModal.hide();
             
             // Abre o WhatsApp com a mensagem pré-preenchida
             window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+            
+            // Limpa o carrinho após enviar
+            cart = [];
+            updateCart();
         }
         
         // Inicializa o carrinho
