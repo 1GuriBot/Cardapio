@@ -3,177 +3,393 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardápio Restaurante Sabor & Arte</title>
+    <title>Cardápio Delivery - Sabor Express</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f5f0;
+            background-color: #f8f9fa;
+            padding-bottom: 100px; /* Espaço para o carrinho fixo */
         }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #8b4513;
-            padding-bottom: 20px;
+        .cardapio-header {
+            background-color: #dc3545;
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
         }
-        
-        h1 {
-            color: #8b4513;
-            font-size: 2.5em;
-            margin-bottom: 10px;
+        .categoria-title {
+            color: #dc3545;
+            border-bottom: 2px solid #dc3545;
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
         }
-        
-        h2 {
-            color: #8b4513;
-            border-bottom: 1px solid #8b4513;
-            padding-bottom: 5px;
-            margin-top: 30px;
+        .card-item {
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            cursor: pointer;
         }
-        
-        .menu-section {
-            margin-bottom: 40px;
+        .card-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
-        
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-        
-        .item-name {
-            font-weight: bold;
-        }
-        
         .item-price {
-            color: #8b4513;
             font-weight: bold;
+            color: #dc3545;
+            font-size: 1.2rem;
         }
-        
-        .item-description {
-            font-style: italic;
-            color: #666;
-            margin-top: 5px;
-            font-size: 0.9em;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #666;
-        }
-        
         .whatsapp-btn {
-            display: inline-block;
             background-color: #25D366;
             color: white;
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 50px;
             font-weight: bold;
-            margin: 20px 0;
-            transition: background-color 0.3s;
         }
-        
         .whatsapp-btn:hover {
             background-color: #128C7E;
+            color: white;
         }
-        
-        .whatsapp-icon {
-            margin-right: 8px;
-            vertical-align: middle;
+        .delivery-info {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin-bottom: 2rem;
         }
-        
-        .checkin-section {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        .fixed-cart {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            padding: 1rem;
+            z-index: 1000;
+        }
+        .cart-item {
+            border-bottom: 1px solid #eee;
+            padding: 0.5rem 0;
+        }
+        .cart-empty {
+            color: #6c757d;
             text-align: center;
-            margin: 30px 0;
+            padding: 1rem;
+        }
+        .badge-notification {
+            position: absolute;
+            top: -5px;
+            right: -5px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Restaurante Sabor & Arte</h1>
-        <p>Comida feita com amor e ingredientes selecionados</p>
+    <!-- Cabeçalho -->
+    <header class="cardapio-header text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Sabor Express</h1>
+            <p class="lead">Delivery rápido e saboroso!</p>
+            <div class="delivery-info text-start mt-3">
+                <p><i class="fas fa-info-circle me-2"></i> <strong>Taxa de entrega:</strong> R$ 5,00 | <strong>Tempo médio:</strong> 40 min</p>
+                <p><i class="fas fa-map-marker-alt me-2"></i> Entregamos em toda região central</p>
+            </div>
+        </div>
     </header>
-    
-    <!-- Seção de Check-in pelo WhatsApp -->
-    <div class="checkin-section">
-        <h2>Faça sua reserva ou check-in</h2>
-        <p>Clique no botão abaixo para reservar sua mesa ou avisar que está chegando via WhatsApp</p>
-        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20fazer%20uma%20reserva%20para%20[data]%20às%20[horário]%20para%20[pessoas]%20pessoas" class="whatsapp-btn">
-            <svg class="whatsapp-icon" width="20" height="20" viewBox="0 0 24 24" fill="white">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
-            Reservar pelo WhatsApp
-        </a>
-        <p>Ou ligue para: (11) 1234-5678</p>
+
+    <div class="container mb-5">
+        <!-- Seção de Destaques -->
+        <section>
+            <h2 class="categoria-title"><i class="fas fa-star me-2"></i>Destaques</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card card-item h-100" onclick="addToCart('Burger Especial', 29.90, 'https://via.placeholder.com/300x200?text=Burger+Especial')">
+                        <img src="https://via.placeholder.com/300x200?text=Burger+Especial" class="card-img-top" alt="Burger Especial">
+                        <div class="card-body">
+                            <h5 class="card-title">Burger Especial</h5>
+                            <p class="card-text">Pão brioche, hambúrguer 180g, queijo cheddar, bacon e molho especial.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="item-price">R$ 29,90</span>
+                                <button class="btn btn-outline-danger btn-sm">Adicionar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card card-item h-100" onclick="addToCart('Pizza Margherita', 49.90, 'https://via.placeholder.com/300x200?text=Pizza+Margherita')">
+                        <img src="https://via.placeholder.com/300x200?text=Pizza+Margherita" class="card-img-top" alt="Pizza Margherita">
+                        <div class="card-body">
+                            <h5 class="card-title">Pizza Margherita</h5>
+                            <p class="card-text">Molho de tomate, mussarela, tomate fresco e manjericão.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="item-price">R$ 49,90</span>
+                                <button class="btn btn-outline-danger btn-sm">Adicionar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card card-item h-100" onclick="addToCart('Salada Cesar', 24.90, 'https://via.placeholder.com/300x200?text=Salada+Cesar')">
+                        <img src="https://via.placeholder.com/300x200?text=Salada+Cesar" class="card-img-top" alt="Salada Cesar">
+                        <div class="card-body">
+                            <h5 class="card-title">Salada Cesar</h5>
+                            <p class="card-text">Alface romana, croutons, parmesão e molho cesar.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="item-price">R$ 24,90</span>
+                                <button class="btn btn-outline-danger btn-sm">Adicionar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Lanches -->
+        <section>
+            <h2 class="categoria-title"><i class="fas fa-hamburger me-2"></i>Lanches</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-item mb-3" onclick="addToCart('X-Burger', 19.90)">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="card-title">X-Burger</h5>
+                                    <p class="card-text">Pão, hambúrguer, queijo, alface e tomate.</p>
+                                </div>
+                                <div class="text-end">
+                                    <span class="item-price">R$ 19,90</span>
+                                    <button class="btn btn-outline-danger btn-sm d-block mt-2">Adicionar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card card-item mb-3" onclick="addToCart('X-Salada', 22.90)">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="card-title">X-Salada</h5>
+                                    <p class="card-text">Pão, hambúrguer, queijo, alface, tomate e maionese.</p>
+                                </div>
+                                <div class="text-end">
+                                    <span class="item-price">R$ 22,90</span>
+                                    <button class="btn btn-outline-danger btn-sm d-block mt-2">Adicionar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Bebidas -->
+        <section>
+            <h2 class="categoria-title"><i class="fas fa-glass-whiskey me-2"></i>Bebidas</h2>
+            <div class="row">
+                <div class="col-md-4 col-6">
+                    <div class="card card-item mb-3" onclick="addToCart('Refrigerante Lata', 6.90)">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Refrigerante Lata</h5>
+                            <p class="card-text">350ml - Coca, Guaraná ou Fanta</p>
+                            <span class="item-price">R$ 6,90</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="card card-item mb-3" onclick="addToCart('Suco Natural', 8.90)">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Suco Natural</h5>
+                            <p class="card-text">500ml - Laranja, Abacaxi ou Maracujá</p>
+                            <span class="item-price">R$ 8,90</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="card card-item mb-3" onclick="addToCart('Água Mineral', 4.90)">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Água Mineral</h5>
+                            <p class="card-text">500ml - Com ou sem gás</p>
+                            <span class="item-price">R$ 4,90</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-    
-    <div class="menu-section">
-        <h2>Entradas</h2>
-        
-        <div class="menu-item">
-            <div>
-                <div class="item-name">Bruschetta Clássica</div>
-                <div class="item-description">Pão italiano torrado com tomate fresco, manjericão e azeite de oliva</div>
+
+    <!-- Carrinho fixo na parte inferior -->
+    <div class="fixed-cart">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-shopping-cart me-2"></i>
+                    <span id="cart-count">0</span> iten(s) - Total: R$ <span id="cart-total">0,00</span>
+                    <span id="delivery-fee" class="small text-muted"> + R$ 5,00 de entrega</span>
+                </h5>
+                <button class="btn btn-success" onclick="finalizeOrder()" id="finalize-btn" disabled>
+                    <i class="fab fa-whatsapp me-2"></i>Finalizar Pedido
+                </button>
             </div>
-            <div class="item-price">R$ 18,90</div>
-        </div>
-        
-        <div class="menu-item">
-            <div>
-                <div class="item-name">Carpaccio de Filé</div>
-                <div class="item-description">Finas fatias de filé mignon cru, rúcula, parmesão e molho de mostarda</div>
+            
+            <div class="mt-2" id="cart-items">
+                <div class="cart-empty">Seu carrinho está vazio</div>
             </div>
-            <div class="item-price">R$ 32,50</div>
-        </div>
-    </div>
-    
-    <div class="menu-section">
-        <h2>Pratos Principais</h2>
-        
-        <div class="menu-item">
-            <div>
-                <div class="item-name">Filé Mignon ao Molho Madeira</div>
-                <div class="item-description">200g de filé mignon, molho madeira, purê de batatas e legumes grelhados</div>
-            </div>
-            <div class="item-price">R$ 78,90</div>
-        </div>
-        
-        <div class="menu-item">
-            <div>
-                <div class="item-name">Risoto de Cogumelos</div>
-                <div class="item-description">Risoto cremoso com mix de cogumelos frescos e parmesão</div>
-            </div>
-            <div class="item-price">R$ 52,00</div>
         </div>
     </div>
+
+    <!-- Bootstrap JS + Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <div class="menu-section">
-        <h2>Sobremesas</h2>
+    <script>
+        // Variáveis globais
+        let cart = [];
+        const deliveryFee = 5.00;
         
-        <div class="menu-item">
-            <div>
-                <div class="item-name">Tiramisu</div>
-                <div class="item-description">Clássico italiano com café, mascarpone e cacau</div>
-            </div>
-            <div class="item-price">R$ 22,00</div>
-        </div>
-    </div>
-    
-    <footer>
-        <p>Aceitamos todos os cartões | Telefone: (11) 1234-5678</p>
-        <p>Horário de funcionamento: Terça a Domingo, das 11h às 23h</p>
-        <p>Endereço: Rua Exemplo, 123 - Centro - São Paulo/SP</p>
-    </footer>
+        // Função para adicionar item ao carrinho
+        function addToCart(name, price, image = '') {
+            // Verifica se o item já está no carrinho
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    name: name,
+                    price: price,
+                    quantity: 1,
+                    image: image
+                });
+            }
+            
+            updateCart();
+            
+            // Feedback visual
+            const button = event.target.closest('.card-item');
+            button.classList.add('border-success');
+            setTimeout(() => {
+                button.classList.remove('border-success');
+            }, 500);
+        }
+        
+        // Função para atualizar o carrinho
+        function updateCart() {
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+            const cartItems = document.getElementById('cart-items');
+            const finalizeBtn = document.getElementById('finalize-btn');
+            
+            // Calcula total de itens e valor total
+            let totalItems = 0;
+            let totalValue = 0;
+            
+            cart.forEach(item => {
+                totalItems += item.quantity;
+                totalValue += item.price * item.quantity;
+            });
+            
+            // Atualiza contadores
+            cartCount.textContent = totalItems;
+            cartTotal.textContent = totalValue.toFixed(2).replace('.', ',');
+            
+            // Habilita/desabilita botão de finalizar
+            finalizeBtn.disabled = totalItems === 0;
+            
+            // Atualiza lista de itens
+            if (totalItems === 0) {
+                cartItems.innerHTML = '<div class="cart-empty">Seu carrinho está vazio</div>';
+            } else {
+                let itemsHTML = '';
+                
+                cart.forEach((item, index) => {
+                    itemsHTML += `
+                        <div class="cart-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="fw-bold">${item.name}</span>
+                                    <small class="text-muted"> x ${item.quantity}</small>
+                                </div>
+                                <div>
+                                    <span class="me-3">R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}</span>
+                                    <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart(${index})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                // Adiciona taxa de entrega e total geral
+                const totalWithDelivery = totalValue + deliveryFee;
+                itemsHTML += `
+                    <div class="cart-item pt-2">
+                        <div class="d-flex justify-content-between fw-bold">
+                            <span>Subtotal:</span>
+                            <span>R$ ${totalValue.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Taxa de entrega:</span>
+                            <span>R$ ${deliveryFee.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                        <div class="d-flex justify-content-between fw-bold mt-1">
+                            <span>Total:</span>
+                            <span>R$ ${totalWithDelivery.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                    </div>
+                `;
+                
+                cartItems.innerHTML = itemsHTML;
+            }
+        }
+        
+        // Função para remover item do carrinho
+        function removeFromCart(index) {
+            event.stopPropagation(); // Evita que o evento se propague para o card
+            
+            if (cart[index].quantity > 1) {
+                cart[index].quantity--;
+            } else {
+                cart.splice(index, 1);
+            }
+            
+            updateCart();
+        }
+        
+        // Função para finalizar pedido via WhatsApp
+        function finalizeOrder() {
+            let message = "Olá, gostaria de fazer um pedido delivery:\n\n";
+            
+            // Lista os itens do pedido
+            cart.forEach(item => {
+                message += `- ${item.name} x ${item.quantity} - R$ ${(item.price * item.quantity).toFixed(2)}\n`;
+            });
+            
+            // Adiciona totais
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = subtotal + deliveryFee;
+            
+            message += `\nSubtotal: R$ ${subtotal.toFixed(2)}\n`;
+            message += `Taxa de entrega: R$ ${deliveryFee.toFixed(2)}\n`;
+            message += `Total: R$ ${total.toFixed(2)}\n\n`;
+            message += "Meus dados para entrega:\n";
+            message += "Nome: \n";
+            message += "Endereço: \n";
+            message += "Telefone: \n";
+            message += "Forma de pagamento: \n";
+            message += "Troco para: \n";
+            
+            // Codifica a mensagem para URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Substitua pelo número do seu restaurante (com código do país e DDD)
+            const whatsappNumber = "5511999999999";
+            
+            // Abre o WhatsApp com a mensagem pré-preenchida
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+        }
+        
+        // Inicializa o carrinho
+        updateCart();
+    </script>
 </body>
 </html>
